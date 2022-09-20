@@ -1,25 +1,36 @@
+#Q   Write a function that will find all the anagrams of a word from a list. 
+#	 You will be given two inputs a word and an array with words. 
+#	 You should return an array of all the anagrams or an empty array if there are none.
+
+#MY SOLUTION
 def anagrams(word, words):
-    dictWord = {'a':0, 'b':0, 'c':0, 'd':0, 'e':0, 'f':0, 'g':0, 'h':0, 'i':0, 'j':0, 'k':0, 'l':0, 'm':0, 'n':0, 'o':0, 'p':0, 'q':0, 'r':0, 's':0, 't':0, 'u':0, 'v':0, 'w':0, 'x':0, 'y':0, 'z':0 }
-    toReturn = []
-    word.lower()
-    for i in range(0, len(word)):
-        dictWord[word[i]] += 1
+	toReturn = []
+	str1 = word.lower()
+	for s in words:
+		str2 = s.lower()
+		if (len(str1) == len(str2)):
+			sorted_str1 = sorted(str1)
+			sorted_str2 = sorted(str2)
 
-    for w in words:
-        w.lower()
-        dictAux = {'a': 0, 'b': 0, 'c': 0, 'd': 0, 'e': 0, 'f': 0, 'g': 0, 'h': 0, 'i': 0, 'j': 0, 'k': 0, 'l': 0,
-                    'm': 0, 'n': 0, 'o': 0, 'p': 0, 'q': 0, 'r': 0, 's': 0, 't': 0, 'u': 0, 'v': 0, 'w': 0, 'x': 0,
-                    'y': 0, 'z': 0}
-        for i in range(0, len(w)):
-            dictAux[w[i]] += 1
-            anagrams = True
-            for c in dictAux:
+			if(sorted_str1 == sorted_str2):
+				toReturn.append(s)
+	print(toReturn)
 
-                if(dictAux[c] != dictWord[c]):
-                    anagrams = False
-        if(anagrams == True):
-            toReturn.append(w)
-    return print(toReturn)
+anagrams('laser', ['lazing', 'lazy',  'lacer'])
 
+#BEST SOLUTIONS
+def anagrams(word, words): return [item for item in words if sorted(item)==sorted(word)]
 
-anagrams('abba', ['aabb', 'abcd', 'bbaa', 'dada'])
+def anagrams(word, words):
+    return filter(lambda x: sorted(word) == sorted(x), words)
+
+from collections import Counter
+
+def anagrams(word, words):
+    counts = Counter(word)
+    return [w for w in words if Counter(w) == counts]
+
+def anagrams(word, words):
+    match = sorted(word)
+    return [w for w in words if match == sorted(w)]
+
